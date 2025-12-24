@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const Rootlayout = () => {
   return (
@@ -9,14 +9,14 @@ const Rootlayout = () => {
         <div className="w-full pr-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <div className="bg-black/80 px-6 py-2 h-full items-center flex  rounded-r-2xl shadow-md">
+            <div className="bg-black/80 pl-6 pr-12 py-2 h-full items-center flex  rounded-r-4xl shadow-md">
               <h1 className="text-xl md:text-2xl text-white font-bold tracking-widest lobster-regular">
                 Gamer-Style
               </h1>
             </div>
 
             {/* Navigation */}
-            <nav className="hidden md:flex gap-8 text-white font-medium">
+            {/* <nav className="hidden md:flex gap-8 text-white font-medium">
               {["Home", "About", "Services", "Contact"].map((item) => (
                 <a
                   key={item}
@@ -26,11 +26,11 @@ const Rootlayout = () => {
                   {item}
                 </a>
               ))}
-            </nav>
+            </nav> */}
 
             {/* Mobile indicator */}
-            <span className="md:hidden text-white text-sm opacity-80">
-              MENU
+            <span className=" text-white text-lg font-bold tracking-widest opacity-90">
+             <Link to="/" >GO HOME</Link>
             </span>
           </div>
         </div>
@@ -51,7 +51,7 @@ const Rootlayout = () => {
             &copy; {new Date().getFullYear()} Gamer-Style. All rights reserved.
           </p>
 
-          <div className="flex gap-6 text-sm">
+          {/* <div className="flex gap-6 text-sm">
             {["Home", "About", "Services", "Contact"].map((item) => (
               <a
                 key={item}
@@ -61,7 +61,7 @@ const Rootlayout = () => {
                 {item}
               </a>
             ))}
-          </div>
+          </div> */}
         </div>
       </footer>
     </div>

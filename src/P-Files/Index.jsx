@@ -43,19 +43,7 @@ const Index = () => {
 
         {/* Dashboard Cards */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {/* FF Bios Card */}
-          <Link
-            to="/ffbios"
-            className="bg-white p-6 rounded-2xl border border-gray-200 shadow hover:shadow-lg transition flex flex-col justify-between"
-          >
-            <h3 className="text-2xl font-semibold text-blue-600 mb-3">FF Bios</h3>
-            <p className="text-gray-600 text-sm mb-4 flex-1">
-              Browse and edit unique Free Fire bios. Add symbols and personalize quickly.
-            </p>
-            <button className="mt-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-medium transition">
-              Go to Bios
-            </button>
-          </Link>
+     
 
           {/* FF Names Card */}
           <Link
@@ -68,6 +56,20 @@ const Index = () => {
             </p>
             <button className="mt-auto bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm font-medium transition">
               Go to Names
+            </button>
+          </Link>
+
+               {/* FF Bios Card */}
+          <Link
+            to="/ffbios"
+            className="bg-white p-6 rounded-2xl border border-gray-200 shadow hover:shadow-lg transition flex flex-col justify-between"
+          >
+            <h3 className="text-2xl font-semibold text-blue-600 mb-3">FF Bios</h3>
+            <p className="text-gray-600 text-sm mb-4 flex-1">
+              Browse and edit unique Free Fire bios. Add symbols and personalize quickly.
+            </p>
+            <button className="mt-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-medium transition">
+              Go to Bios
             </button>
           </Link>
         </section>

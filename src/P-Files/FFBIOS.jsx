@@ -9,7 +9,10 @@ const FFBIOS = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentBio, setCurrentBio] = useState("");
   const textareaRef = useRef(null);
+ const [parsedBio, setParsedBio] = useState([]);
 
+ 
+ 
   useEffect(() => {
     setFfBios(data);
   }, []);
@@ -45,6 +48,9 @@ const FFBIOS = () => {
     }, 0);
   };
 
+
+
+
   return (
     <div className="container mx-auto p-4 sm:p-6">
 
@@ -56,33 +62,64 @@ const FFBIOS = () => {
         </h1>
       </div>
 
-      {/* Bios Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {ffBios.map((bio, index) => (
-          <div
-            key={index}
-            className="p-4 border rounded-lg shadow-md bg-white hover:shadow-lg transition flex flex-col justify-between"
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+  {ffBios.map((bio, index) => {
+    // Parse the bio here (inside render is okay for small data)
+    const regex = /\[([0-9A-Fa-f]{1,6}|[ABC])\](.*?)(?=(\[[0-9A-Fa-f]{1,6}|[ABC]\])|$)/gs;
+    const styleMap = { B: { fontWeight: "bold" }, C: { fontWeight: "bold" }, A: { fontWeight: "bold" } };
+    
+    const parsed = [];
+    let match;
+    while ((match = regex.exec(bio)) !== null) {
+      const code = match[1];
+      const style = styleMap[code] || (/^[0-9A-Fa-f]{1,6}$/.test(code) ? { color: `#${code}` } : {});
+      parsed.push({ text: match[2], style });
+    }
+
+    return (
+      <div
+        key={index}
+        className="p-4 border rounded-lg shadow-md bg-white hover:shadow-lg transition flex flex-col justify-between"
+      >
+        {/* Render parsed bio with styles */}
+        <div className="text-sm sm:text-base whitespace-pre-wrap h-30 flex justify-center items-center rounded-2xl bg-gradient-to-r from-black/55 via-black/45 to-black/40 shadow-lg p-4">
+  <div className="text-white">
+    {parsed.length > 0
+      ? parsed.map((item, idx) => (
+          <span key={idx} style={item.style}>
+            {item.text}
+          </span>
+        ))
+      : bio /* fallback if no styles */}
+  </div>
+</div>
+
+         <div className="text-sm sm:text-base whitespace-pre-wrap mt-2">
+          {bio}
+        </div>
+        
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row justify-between mt-4 gap-2">
+          <button
+            onClick={() => navigator.clipboard.writeText(bio).then(() => alert("Copied"))}
+            className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm sm:text-base hover:scale-105 transition"
           >
-            <pre className="whitespace-pre-wrap text-sm sm:text-base">{bio}</pre>
+            📋 Copy
+          </button>
 
-            <div className="flex flex-col sm:flex-row justify-between mt-4 gap-2">
-              <button
-                onClick={() => navigator.clipboard.writeText(bio).then(() => alert("Copied"))}
-                className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm sm:text-base hover:scale-105 transition"
-              >
-                📋 Copy
-              </button>
-
-              <button
-                onClick={() => handleEdit(bio)}
-                className="border px-4 py-2 rounded-lg text-sm sm:text-base hover:bg-gray-100 hover:scale-105 transition"
-              >
-                ✎ Edit
-              </button>
-            </div>
-          </div>
-        ))}
+          <button
+            onClick={() => handleEdit(bio)}
+            className="border px-4 py-2 rounded-lg text-sm sm:text-base hover:bg-gray-100 hover:scale-105 transition"
+          >
+            ✎ Edit
+          </button>
+        </div>
       </div>
+    );
+  })}
+</div>
+
+
 
       {/* Edit Modal */}
       {isEditing && (
