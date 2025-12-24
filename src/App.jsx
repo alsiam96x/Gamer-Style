@@ -1,12 +1,11 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Rootlayout from "./C-Files/Rootlayout";
-import FFNAMES from "./P-Files/FFNAMES";
 
 // Lazy load the pages
-const Index = lazy(() => import("./P-Files"));
-const FFBIOS = lazy(() => import("./P-Files/FFBIOS"));
-
+const Index = lazy(() => import("./P-Files/Index.jsx"));
+const FFBIOS = lazy(() => import("./P-Files/FFBIOS.jsx"));
+const FFNAMES = lazy(() => import("./P-Files/FFNAMES.jsx"))
 function App() {
 
   const router = createBrowserRouter(
